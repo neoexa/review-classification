@@ -37,8 +37,8 @@ if __name__ == "__main__":
     parameters = {
         'clf__C': (1, 1000)
         'vect__min_df': (1,2,3),
-        'vect__max_df': (0.9, 1.0),
-        'vect__ngram_range': [(1, 1), (1, 2)],
+        'vect__max_df': (0.7, 1.0),
+        'vect__ngram_range': [(1, 1), (1, 2),(1, 3)],
     }
     
     grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)
