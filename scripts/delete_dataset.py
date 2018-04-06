@@ -1,7 +1,8 @@
 import os, shutil
 
-POS_CLASS = "./neo_data/pos/"
-NEG_CLASS = "./neo_data/neg/"
+
+POS_CLASS = "./dataset/pos/"
+NEG_CLASS = "./dataset/neg/"
 
 for the_file in os.listdir(POS_CLASS):
     file_path = os.path.join(POS_CLASS, the_file)
