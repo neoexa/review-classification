@@ -1,0 +1,3 @@
+.vscode/
+dataset/pos/*.txt
+dataset/neg/*.txt
