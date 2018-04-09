@@ -1,9 +1,7 @@
-from __future__ import print_function
-
 import sys
 from pprint import pprint
 from time import time
-
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
@@ -14,14 +12,22 @@ from sklearn import metrics
 
 
 
+TRAIN_DATA = "dataset/"
+CHALLENGE_DATA = "data/challenge_data.csv"
+
 
 if __name__ == "__main__":
     
     print("Loading movie reviews dataset :")
-    movie_reviews_data_folder = sys.argv[1]
-    dataset = load_files(movie_reviews_data_folder, shuffle=True)
-    print("%d documents" % len(dataset.filenames))
+    dataset = load_files(TRAIN_DATA, shuffle=True)
+    print("%d training documents" % len(dataset.filenames))
     print("%d categories" % len(dataset.target_names))
+
+    
+    challenge_pd = pd.read_csv(CHALLENGE_DATA, names=['x'], sep='\t', header=None)
+    print("%d challenge documents" % len(challenge_pd))
+    #print(challenge_pd)
+
     print()
 
     docs_train, docs_test, y_train, y_test = train_test_split(
@@ -29,12 +35,13 @@ if __name__ == "__main__":
 
 
     pipeline = Pipeline([
-        ('vect', TfidfVectorizer(stop_words='english', strip_accents='ascii', ngram_range=(1,2), min_df=1, max_df=0.9)),
-        ('clf', LinearSVC(C=1000)),
+        ('vect', TfidfVectorizer(stop_words='english', ngram_range=(1,2), min_df=1, max_df=0.9)),
+        ('clf', LinearSVC(C = 1000)),
     ])
 
     
     parameters = {
+        
     }
         
     grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)
@@ -57,12 +64,14 @@ if __name__ == "__main__":
 
     print()
     
-    y_predicted = grid_search.predict(docs_test)
-
-    
+    print("AntiCrossVal Accuracy")
+    y_predicted = grid_search.predict(docs_test)  
     print(metrics.classification_report(y_test, y_predicted, target_names=dataset.target_names))
-
-    
     cm = metrics.confusion_matrix(y_test, y_predicted)
     print(cm)   
-    
+
+    print("Challenge prediction")
+    challenge_predictions = grid_search.best_estimator_.predict(challenge_pd.x)
+    output = pd.DataFrame(challenge_predictions)
+    output.to_csv('challenge_predictions.csv', header =None, index = False)
+    print("FIN")
