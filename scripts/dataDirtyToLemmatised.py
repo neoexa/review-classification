@@ -9,7 +9,7 @@ TREETAGGER_DIR = ROOT_DIR + "/../treetagger"
 DATA_DIR = ROOT_DIR + "/../data"
 DATA_FILE = DATA_DIR + "/dataset.csv"
 
-NEO_DATA_FILE = "./data/lematised_data.csv"
+NEO_DATA_FILE = DATA_DIR + "/lemmatised_dataset.csv"
 
 if os.path.isdir(TREETAGGER_DIR):
 	if os.path.isfile(DATA_FILE):
@@ -39,4 +39,3 @@ else:
 	print "NO TREETAGGER DIR /treetagger/"
 
 print("\r" + "DONE. \n")
-
