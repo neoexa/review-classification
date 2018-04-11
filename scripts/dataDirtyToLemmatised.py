@@ -12,6 +12,7 @@ DATA_FILE = DATA_DIR + "/dataset.csv"
 NEO_DATA_DIR = ROOT_DIR + "/../data"
 NEO_DATA_FILE = NEO_DATA_DIR + "/lematised_data.csv"
 
+
 if os.path.isdir(TREETAGGER_DIR):
 	if os.path.isfile(DATA_FILE):
 		
@@ -40,4 +41,3 @@ else:
 	print "NO TREETAGGER DIR /treetagger/"
 
 print("\r" + "DONE. \n")
-

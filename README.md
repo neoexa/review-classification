@@ -4,12 +4,15 @@ Movie reviews classification w/ scikitlearn
 
 ## Dossiers et Fichiers:
 
-**Dossier data :** tout les datasets, dataset challenge + dataset original + dataset lematisé + dataset lematisé et tagé 
-**Dossier dataset :**  données d’apprentissage, chaque sous dossier représente une classe(label) 
+**Dossier data :** tout les datasets, dataset challenge + dataset original + dataset lematisé + dataset lematisé et tagé  
+
+**Dossier dataset :**  données d’apprentissage, chaque sous dossier représente une classe(label)
+
 **Scripts :** 
-*build_dataset.py* : construit le dossier dataset à partir d'un fichier dataset quelconque (ex: *datasetLematisé.csv*) et *label.csv*
-*delete_dataset.py* : détruit la construction d'avant (pratique si on veux tester avec un autre corpus)
-*DataDirtyToLemmatised* : prend *dataset.csv* (dataset original) ---> et renvoie *data/lemmatised_dataset.csv*
+
+- *build_dataset.py* : construit le dossier dataset à partir d'un fichier dataset quelconque (ex: *datasetLematisé.csv*) et *label.csv*
+- *delete_dataset.py* : détruit la construction d'avant (pratique si on veux tester avec un autre corpus)
+- *DataDirtyToLemmatised* : prend *dataset.csv* (dataset original) ---> et renvoie *data/lemmatised_dataset.csv*
 
 
 ## Utilisation :
