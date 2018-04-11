@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/bin
+CMD=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/cmd
+LIB=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/lib
+
+OPTIONS="-token -lemma -sgml"
+
+TAGGER=${BIN}/tree-tagger
+TOKENIZER=${CMD}/utf8-tokenize.perl
+PARFILE=${LIB}/slovak-utf8.par
+
+$TOKENIZER $* |
+$TAGGER $OPTIONS $PARFILE

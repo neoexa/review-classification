@@ -9,7 +9,8 @@ TREETAGGER_DIR = ROOT_DIR + "/../treetagger"
 DATA_DIR = ROOT_DIR + "/../data"
 DATA_FILE = DATA_DIR + "/dataset.csv"
 
-NEO_DATA_FILE = "./data/lematised_data.csv"
+NEO_DATA_DIR = ROOT_DIR + "/../data"
+NEO_DATA_FILE = NEO_DATA_DIR + "/lematised_data.csv"
 
 if os.path.isdir(TREETAGGER_DIR):
 	if os.path.isfile(DATA_FILE):

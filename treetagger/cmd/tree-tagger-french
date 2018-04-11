@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/bin
+CMD=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/cmd
+LIB=/auto_home/hdossantosma/Documents/m1/s2/fouillededonnees/git/review-classification/treetagger/lib
+
+OPTIONS="-token -lemma -sgml"
+
+TOKENIZER=${CMD}/utf8-tokenize.perl
+TAGGER=${BIN}/tree-tagger
+ABBR_LIST=${LIB}/french-abbreviations-utf8
+PARFILE=${LIB}/french-utf8.par
+
+$TOKENIZER -f -a $ABBR_LIST $* |
+$TAGGER $OPTIONS $PARFILE

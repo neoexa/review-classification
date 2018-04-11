@@ -9,7 +9,8 @@ TREETAGGER_DIR = ROOT_DIR + "/../treetagger"
 DATA_DIR = ROOT_DIR + "/../data"
 DATA_FILE = DATA_DIR + "/dataset.csv"
 
-NEO_DATA_FILE = "./data/lematised_tagged_data.csv"
+NEO_DATA_DIR = ROOT_DIR + "/../data"
+NEO_DATA_FILE = NEO_DATA_DIR + "/lematised_tagged_data.csv"
 
 TagsUsed = ["JJ","JJR","JJS","CC","IN","RB","RBR","RBS","VB","PDT","POS","PP",
 		"PP$","VBD","VBG","VBN","VBZ","VBP","VD","VDD","VDG","VDN","VDZ","VDP",
