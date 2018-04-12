@@ -1,37 +1,63 @@
-#import sys
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.neighbors import NearestNeighbors
-from sklearn.model_selection import train_test_split
-
-import numpy as np
+import sys
+from pprint import pprint
+from time import time
 import pandas as pd
- 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import GridSearchCV
+from sklearn.datasets import load_files
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
 
 
-print("Loading movie reviews dataset :")
 
-X = pd.read_csv('./data/dataset.csv', sep='\n')
-y = pd.read_csv('./data/labels.csv', sep='\n')
-
-X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
-
-clf = NearestNeighbors()
-clf.fit(X_train, y_train)
-
-accuracy = clf.score(X_test, y_test)
-print(accuracy)
+TRAIN_DATA = "dataset/"
 
 
-#dataset = load_files(movie_reviews_data_folder, shuffle=True)
-#print("%d documents" % len(dataset.filenames))
-#print("%d categories" % len(dataset.target_names))
-#print()
+if __name__ == "__main__":
+    
+    print("Chargement des donnees d'entrainement  :")
+    dataset = load_files(TRAIN_DATA, shuffle=True)
+    print("%d Documents trainData" % len(dataset.filenames))
+    print("%d Categories" % len(dataset.target_names))
+    print()
 
-#docs_train, docs_test, y_train, y_test = train_test_split(dataset.data, dataset.target, test_size=0.10)
-#clf = NearestNeighbors()
-#clf.fit(docs_train, y_train)
+    docs_train, docs_test, y_train, y_test = train_test_split(
+        dataset.data, dataset.target, test_size=0.10, random_state=True)
 
-#accuracy = clf.score(docs_test, y_test)
 
-#print(accuracy)
+    pipeline = Pipeline([
+        ('vect', TfidfVectorizer()),
+        ('clf', KNeighborsClassifier(n_neighbors=3)),
+    ])
+
+    
+    parameters = {
+        
+    }
+        
+    grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)
+    
+    print("Calcul grid search ...")
+    print("Pipeline:", [name for name, _ in pipeline.steps])
+
+    
+    t0=time()
+    grid_search.fit(docs_train, y_train)
+    print("done in %0.3fs" % (time() - t0))
+    print()
+
+
+    print("Best parameters set :")
+    best_parameters = grid_search.best_estimator_.get_params()
+    for param_name in sorted(parameters.keys()):
+        print("\t%s: %r" % (param_name, best_parameters[param_name]))
+
+    print("Precision Cross Validation: %0.3fs" % grid_search.best_score_)
+    
+    print("Precision test:")
+    y_predicted = grid_search.predict(docs_test)  
+    print(metrics.classification_report(y_test, y_predicted, target_names=dataset.target_names))
+    cm = metrics.confusion_matrix(y_test, y_predicted)
+    print(cm)
