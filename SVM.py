@@ -40,16 +40,13 @@ if __name__ == "__main__":
 	
 
 	pipeline = Pipeline([
-		('vect', TfidfVectorizer(stop_words='english', min_df=1, max_df=0.9)),
-		('clf', LinearSVC()),
+		('vect', TfidfVectorizer(stop_words='english', strip_accents='ascii', ngram_range=(1,2), min_df=1, max_df=0.9)),
+		('clf', LinearSVC(C=1000)),
 	])
 
 
-	#TODO para a tester	
-	#C, ngram_range, stopword, df
 	parameters = {
-		'clf__C' : [1, 10,50,  100,1000],
-		'vect__ngram_range' : [(1,2)]
+		'clf__C': [1, 10, 100, 1000],
 	}
 		
 	grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)
@@ -85,7 +82,7 @@ if __name__ == "__main__":
 
 
 	scores = [x[1] for x in grid_search.grid_scores_]
-	print scores
+	print(scores)
 
 
 	# alphab = parameters['clf__C']

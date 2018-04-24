@@ -28,13 +28,14 @@ if __name__ == "__main__":
 
 
     pipeline = Pipeline([
-        ('vect', TfidfVectorizer()),
-        ('clf', KNeighborsClassifier(n_neighbors=3)),
+        ('vect', TfidfVectorizer(stop_words='english', strip_accents='ascii', ngram_range=(1,2), min_df=1, max_df=0.9)),
+        ('clf', KNeighborsClassifier(n_neighbors=100, weights='uniform')),
     ])
 
     
     parameters = {
-        
+        'clf__n_neighbors': [10, 100],
+        'clf__weights': ['uniform', 'distance'],
     }
         
     grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)

@@ -29,12 +29,13 @@ if __name__ == "__main__":
 
     pipeline = Pipeline([
         ('vect', TfidfVectorizer(stop_words='english', strip_accents='ascii', ngram_range=(1,2), min_df=1, max_df=0.9)),
-        ('clf', MultinomialNB()),
+        ('clf', MultinomialNB(alpha=1.0, fit_prior=True)),
     ])
 
     
     parameters = {
-        
+        'clf__alpha': [1.0, 0],
+        'clf__fit_prior': [True, False]        
     }
         
     grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1)
