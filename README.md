@@ -9,7 +9,7 @@ Movie reviews classification w/ scikitlearn
 **Dossier dataset :**  données d’apprentissage, chaque sous dossier représente une classe(label)
 
 **Scripts :** 
-- *build_package.py* : installe les packages nécessaires à l'exécution des programmes (n'est nécessaire qu'à la première exécution)
+- *build_package.py* : installe les packages nécessaires à l'exécution des programmes
 - *build_dataset.py* : construit le dossier dataset à partir d'un fichier dataset quelconque (ex: *datasetLematisé.csv*) et *label.csv*
 - *delete_dataset.py* : détruit la construction d'avant (pratique si on veux tester avec un autre corpus)
 - *DataDirtyToLemmatised* : prend *dataset.csv* (dataset original) ---> et renvoie *data/lemmatised_dataset.csv*
